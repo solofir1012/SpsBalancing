@@ -1,0 +1,9 @@
+C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\bin\Debug\SPS_LoadBalancing.exe.config
+C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\bin\Debug\SPS_LoadBalancing.exe
+C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\bin\Debug\SPS_LoadBalancing.pdb
+C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.csprojResolveAssemblyReference.cache
+C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.mainForm.resources
+C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.Properties.Resources.resources
+C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.csproj.GenerateResource.Cache
+C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.exe
+C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.pdb
