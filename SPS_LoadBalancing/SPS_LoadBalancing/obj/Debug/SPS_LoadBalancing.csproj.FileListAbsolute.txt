@@ -7,3 +7,12 @@ C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalanc
 C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.csproj.GenerateResource.Cache
 C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.exe
 C:\Users\hp\Desktop\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.pdb
+D:\GitHub\SpsBalancing\SPS_LoadBalancing\SPS_LoadBalancing\bin\Debug\SPS_LoadBalancing.exe.config
+D:\GitHub\SpsBalancing\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.exe
+D:\GitHub\SpsBalancing\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.pdb
+D:\GitHub\SpsBalancing\SPS_LoadBalancing\SPS_LoadBalancing\bin\Debug\SPS_LoadBalancing.exe
+D:\GitHub\SpsBalancing\SPS_LoadBalancing\SPS_LoadBalancing\bin\Debug\SPS_LoadBalancing.pdb
+D:\GitHub\SpsBalancing\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.csprojResolveAssemblyReference.cache
+D:\GitHub\SpsBalancing\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.mainForm.resources
+D:\GitHub\SpsBalancing\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.Properties.Resources.resources
+D:\GitHub\SpsBalancing\SPS_LoadBalancing\SPS_LoadBalancing\obj\Debug\SPS_LoadBalancing.csproj.GenerateResource.Cache

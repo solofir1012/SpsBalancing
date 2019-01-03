@@ -34,14 +34,16 @@ namespace SPS_LoadBalancing.Connect
                         if (listRecMsg[0] == "0x02")
                         {
                             //说明是主备机切换消息
+                            //说明是主备机切换消息
                             if (listRecMsg[1] == "Info_Heart_MainOrStandBy")
                             {
-                                if (listRecMsg[2] != mainForm.thisForm._localHost)
+                                #region 心跳处理
+                                if (listRecMsg[2] != mainForm.thisForm.localHost)
                                 {
                                     mainForm.thisForm.listBox1.Items.Add(DateTime.Now.ToString() + "--接收--心跳正常--" + str);
-                                    lock (mainForm.thisForm._lockSwitch)
+                                    lock (mainForm.thisForm.lockSwitch)
                                     {
-                                        if (mainForm.thisForm._tcpInitStandByServerHost == listRecMsg[2])
+                                        if (mainForm.thisForm.tcpInitStandByServerHost == listRecMsg[2])
                                         {
                                             //设置上次接收的时间
                                             mainForm.thisForm._timeStandByLast = DateTime.Now;
@@ -51,22 +53,22 @@ namespace SPS_LoadBalancing.Connect
                                             {
                                                 //说明收到主机消息
                                                 //查看本机的状态
-                                                if (mainForm.thisForm._priority == StructNode.Priority.main)
+                                                if (mainForm.thisForm.priority == StructNode.Priority.main)
                                                 {
                                                     //本机也是主机
                                                     //判断谁是主机的时间早，谁早谁成为主机
                                                     DateTime _switchTimeStandBy = Convert.ToDateTime(listRecMsg[4]);
-                                                    if (_switchTimeStandBy < mainForm.thisForm._switchPriorityTime)
+                                                    if (_switchTimeStandBy < mainForm.thisForm.switchPriorityTime)
                                                     {
                                                         //说明另外一个机器成为主机的时间早
                                                         //保持原有的设置
                                                         //不做切换
-                                                        mainForm.thisForm._priority = StructNode.Priority.standby;
-                                                        mainForm.thisForm._switchPriorityTime = DateTime.Now;
+                                                        mainForm.thisForm.priority = StructNode.Priority.standby;
+                                                        mainForm.thisForm.switchPriorityTime = DateTime.Now;
                                                         //发送切换的广播消息
                                                         //待定发送
                                                         //1是设置主机消息
-                                                        string sendInfo = "0x02#Info_Switch_MainOrStandBy#1#" + mainForm.thisForm._tcpInitStandByServerHost + "#" + StructNode.Priority.main.ToString() +
+                                                        string sendInfo = "0x02#Info_Switch_MainOrStandBy#" + mainForm.thisForm.tcpInitStandByServerHost + "#" + StructNode.Priority.main.ToString() +
                                                             "#" + DateTime.Now.ToString();
                                                         //发送
                                                         byte[] bytes = Encoding.Default.GetBytes(sendInfo);
@@ -76,7 +78,7 @@ namespace SPS_LoadBalancing.Connect
                                                     {
                                                         //将自己是主机的设置重新发布一次
                                                         //1是设置主机消息
-                                                        string sendInfo = "0x02#Info_Switch_MainOrStandBy#1#" + mainForm.thisForm._localHost + "#" + StructNode.Priority.main.ToString() +
+                                                        string sendInfo = "0x02#Info_Switch_MainOrStandBy#" + mainForm.thisForm.localHost + "#" + StructNode.Priority.main.ToString() +
                                                             "#" + DateTime.Now.ToString();
                                                         //发送
                                                         byte[] bytes = Encoding.Default.GetBytes(sendInfo);
@@ -92,7 +94,7 @@ namespace SPS_LoadBalancing.Connect
                                             {
                                                 //说明收到备机消息
                                                 //查看本机的状态
-                                                if (mainForm.thisForm._priority == StructNode.Priority.main)
+                                                if (mainForm.thisForm.priority == StructNode.Priority.main)
                                                 {
                                                     //本机是主机，不需要操作
                                                 }
@@ -100,13 +102,13 @@ namespace SPS_LoadBalancing.Connect
                                                 {
                                                     //说明是双备机
                                                     DateTime _switchTimeStandBy = Convert.ToDateTime(listRecMsg[4]);
-                                                    if (_switchTimeStandBy < mainForm.thisForm._switchPriorityTime)
+                                                    if (_switchTimeStandBy < mainForm.thisForm.switchPriorityTime)
                                                     {
-                                                        mainForm.thisForm._priority = StructNode.Priority.main;
-                                                        mainForm.thisForm._switchPriorityTime = DateTime.Now;
+                                                        mainForm.thisForm.priority = StructNode.Priority.main;
+                                                        mainForm.thisForm.switchPriorityTime = DateTime.Now;
                                                         //将自己设置成主机
                                                         //1是设置主机消息
-                                                        string sendInfo = "0x02#Info_Switch_MainOrStandBy#1#" + mainForm.thisForm._localHost + "#" + StructNode.Priority.main.ToString() +
+                                                        string sendInfo = "0x02#Info_Switch_MainOrStandBy#" + mainForm.thisForm.localHost + "#" + StructNode.Priority.main.ToString() +
                                                             "#" + DateTime.Now.ToString();
                                                         //发送
                                                         byte[] bytes = Encoding.Default.GetBytes(sendInfo);
@@ -116,7 +118,7 @@ namespace SPS_LoadBalancing.Connect
                                                     {
                                                         //将自己设置成主机
                                                         //1是设置主机消息
-                                                        string sendInfo = "0x02#Info_Switch_MainOrStandBy#1#" + mainForm.thisForm._tcpInitStandByServerHost + "#" + StructNode.Priority.main.ToString() +
+                                                        string sendInfo = "0x02#Info_Switch_MainOrStandBy#" + mainForm.thisForm.tcpInitStandByServerHost + "#" + StructNode.Priority.main.ToString() +
                                                             "#" + DateTime.Now.ToString();
                                                         //发送
                                                         byte[] bytes = Encoding.Default.GetBytes(sendInfo);
@@ -127,6 +129,45 @@ namespace SPS_LoadBalancing.Connect
                                         }
                                     }
                                 }
+                                #endregion
+                            }
+                            else if (listRecMsg[1] == "Info_Switch_MainOrStandBy")
+                            {
+                                #region 切换消息处理
+                                //说明收到备机消息
+                                //查看本机的状态
+                                lock (mainForm.thisForm.lockSwitch)
+                                {
+                                    if (mainForm.thisForm.tcpInitStandByServerHost == listRecMsg[2])
+                                    {
+                                        //说明收到了设置对方为主机的消息
+                                        if (mainForm.thisForm.priority == StructNode.Priority.main)
+                                        {
+                                            //本机是主机，将自己设为备机
+                                            mainForm.thisForm.priority = StructNode.Priority.standby;
+                                            mainForm.thisForm.switchPriorityTime = DateTime.Now;
+                                        }
+                                        else
+                                        {
+                                            //自己本身就是备机，不做操作
+                                        }
+                                    }
+                                    else
+                                    {
+                                        //说明收到了自己设为主机的消息
+                                        if (mainForm.thisForm.priority == StructNode.Priority.main)
+                                        {
+                                            //自己本身就是主机，不做操作
+                                        }
+                                        else
+                                        {
+                                            //本机是备机，将自己设为主机
+                                            mainForm.thisForm.priority = StructNode.Priority.main;
+                                            mainForm.thisForm.switchPriorityTime = DateTime.Now;
+                                        }
+                                    }
+                                }
+                                #endregion
                             }
                         }
                     }
